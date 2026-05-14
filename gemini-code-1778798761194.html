@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Mercado: Cerveza Siembra | Dashboard BI</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --siembra-green: #2e7d32;
+            --declive-red: #c62828;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --dark: #263238;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 1100px; margin: auto; }
+        
+        .header { 
+            background: var(--siembra-green); 
+            color: white; 
+            padding: 2rem; 
+            border-radius: 16px; 
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--card); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #edf2f7; }
+        
+        .stat-group { display: flex; justify-content: space-between; margin-bottom: 2rem; gap: 1rem; }
+        .stat-card { flex: 1; background: white; padding: 1rem; border-radius: 10px; text-align: center; border-bottom: 4px solid var(--siembra-green); }
+        .danger { color: var(--declive-red); font-weight: bold; }
+        .success { color: var(--siembra-green); font-weight: bold; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
+        th { background: #fcfcfc; color: #718096; text-transform: uppercase; font-size: 0.75rem; }
+
+        .foda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
+        .foda-item { padding: 10px; border-radius: 6px; font-size: 0.8rem; }
+        .f-fortaleza { background: #e8f5e9; color: #2e7d32; }
+        .f-debilidad { background: #ffebee; color: #c62828; }
+
+        @media (max-width: 768px) { .stat-group { flex-direction: column; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Análisis de Mercado: Cerveza Siembra</h1>
+        <p>Estrategia de recuperación: Del declive por sabor hacia el liderazgo sostenible.</p>
+    </div>
+
+    <div class="stat-group">
+        <div class="stat-card">
+            <span style="font-size: 0.8rem; color: #718096;">Sabor (Percepción)</span><br>
+            <span class="danger">4.2</span> → <span class="success">8.5 / 10</span>
+        </div>
+        <div class="stat-card">
+            <span style="font-size: 0.8rem; color: #718096;">Intención de Recompra</span><br>
+            <span class="danger">12%</span> → <span class="success">48%</span>
+        </div>
+        <div class="stat-card">
+            <span style="font-size: 0.8rem; color: #718096;">Market Share Proyectado</span><br>
+            <span class="success">+2.6% Anual</span>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>📈 Proyección de Recuperación</h2>
+            <canvas id="mainChart"></canvas>
+            <p style="font-size: 0.85rem; color: #4a5568; margin-top: 1rem;">
+                El gráfico muestra la correlación directa entre la mejora de la fórmula (Abril) y el incremento en el volumen de ventas impulsado por el "re-consumo".
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 Segmentación y FODA</h2>
+            <table>
+                <thead>
+                    <tr><th>Pilar</th><th>Declive</th><th>Meta</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Público</strong></td><td>Rural / Mayor</td><td>Urbano / Gen Z</td></tr>
+                    <tr><td><strong>Canal</strong></td><td>Tiendas</td><td>Bares / Apps</td></tr>
+                    <tr><td><strong>Precio</strong></td><td>Sensible</td><td>Valor Percibido</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="foda-grid">
+                <div class="foda-item f-fortaleza"><strong>Fortaleza:</strong> Origen 100% local y apoyo al agro.</div>
+                <div class="foda-item f-debilidad"><strong>Debilidad:</strong> Sabor histórico inconsistente.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('mainChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr (Mejora)', 'May', 'Jun'],
+            datasets: [{
+                label: 'Ventas (Hectolitros)',
+                data: [1200, 1050, 850, 1150, 1500, 1850],
+                borderColor: '#2e7d32',
+                backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: false } }
+        }
+    });
+</script>
+
+</body>
+</html>
